@@ -3,7 +3,6 @@ import '../App.css'
 import axios from 'axios'
 
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
@@ -62,20 +61,17 @@ export default function PokeCard({ p }) {
     const { name, url } = p
     const pokeNum = url.split('/')[url.split('/').length - 2]
     const pokeImgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeNum}.png`
-    const [currentPokemon, setCurrentPokemon] = useState(`https://pokeapi.co/api/v2/pokemon-species/${pokeNum}/`)
-    const [loading, setLoading] = useState(true)
+    const currentPokemon = `https://pokeapi.co/api/v2/pokemon-species/${pokeNum}/`
     const [open, setOpen] = useState(false);
     const [flavorText, setFlavorText] = useState("")
 
     useEffect(() => {
-      setLoading(true)
       let cancel
       axios
       .get(currentPokemon, {
         cancelToken: new axios.CancelToken(c => cancel = c)
       })
       .then(res => {
-        setLoading(false)
         setFlavorText(filterFlavorItems(res.data.flavor_text_entries, "en"))
       })
       return () => cancel()
