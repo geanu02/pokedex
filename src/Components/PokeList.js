@@ -4,7 +4,11 @@ import '../App.css'
 
 import Grid from '@mui/material/Grid';
 
-export default function PokeList({ pokemon }) {
+export default function PokeList({ pokemon, loading }) {
+  if (loading) {
+    return <h2>Loading...</h2>
+  }
+  
   return (
     <div className="pokelist">
         {pokemon.map(p => (
