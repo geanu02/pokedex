@@ -1,5 +1,7 @@
 import React from 'react'
 import Button from '@mui/material/Button';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 export default function PageControl({ gotoNextPage, gotoPrevPage, postsPerPage, totalPosts, paginate }) {
 
@@ -17,16 +19,35 @@ export default function PageControl({ gotoNextPage, gotoPrevPage, postsPerPage, 
         <Button onClick={() => paginate(1, 15)}variant="outlined">15</Button>
         <Button onClick={gotoNextPage} disabled={(gotoNextPage ? false : true)} variant="contained">Next</Button>
       </div>
-      <div className="page-control-bot">
-        <nav>
-          <ul className="pagination">
-            {pageNumbers.map(number => (
-              <li key={number} className="pag-list-item">
-                <a onClick={() => paginate(number, postsPerPage)} href="!#" className="pag-list-a">{number}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+      <div className="page-control-bottom">
+        <Stack spacing={2}>
+          <Pagination 
+            onChange={e => paginate(e.target.textContent, postsPerPage)}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              color: "#000"
+            }}
+            count={pageNumbers.length}
+            variant="outlined"
+            shape="rounded"
+            color="primary"
+
+            // Task 1:
+            // Remove 'Previous' & 'Next' Buttons and use Arrow Buttons
+            // on Pagination component to drive instead
+
+            // Task 2:
+            // Selected or highlighted page number should be controlled to 
+            // synchronize both Pagination components (top & bottom)
+
+            // Task 3:
+            // If number of items per page is changed, selected or 
+            // highlighted page number should go back to Page 1
+
+            />
+        </Stack>
       </div>
     </div>
   )

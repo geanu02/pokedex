@@ -42,3 +42,19 @@ h2.pokename {
     background-color: #dddddd;
     text-decoration: none;
 }
+
+.page-control-container {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-control-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.page-control-bottom {
+    margin-top: 10px;
+}
