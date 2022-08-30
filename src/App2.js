@@ -35,12 +35,10 @@ export default function App2() {
     const [pokemon, setPokemon] = useState(["Bulbasaur", "Charmander"])
     const [currentPageUrl, setCurrentPageUrl] = useState("https://pokeapi.co/api/v2/pokemon")
     const [loading, setLoading] = useState(true)
-    const [currentPage, setCurrentPage] = useState(1)
     const [postsPerPage, setPostsPerPage] = useState(20)
     const [prevPageUrl, setPrevPageUrl] = useState()
     const [nextPageUrl, setNextPageUrl] = useState()
     const [totalPosts, setTotalPosts] = useState(0)
-    
   
     useEffect(() => { 
       setLoading(true)
@@ -58,25 +56,20 @@ export default function App2() {
       })
       return () => cancel()
     }, [currentPageUrl])
-  
-    // Page Controls
+
+    // Pagination
 
     const gotoNextPage = () => setCurrentPageUrl(nextPageUrl)
     const gotoPrevPage = () => setCurrentPageUrl(prevPageUrl)
-    const showItems = numItems => {
-      setPostsPerPage(numItems)
-      setCurrentPageUrl(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=${postsPerPage}`)
-    }
-  
-    // Pagination
-
-    const indexOfLastPost = currentPage * postsPerPage
-    const indexOfFirstPost = indexOfLastPost - postsPerPage
-    const currentPokemon = pokemon.slice(indexOfFirstPost, indexOfLastPost)
 
     // Change Page
 
-    const paginate = pageNumber => setCurrentPage(pageNumber)
+    const paginate = (pageNumber, itemsPerPage) => {
+      let offset = (pageNumber - 1) * itemsPerPage
+      // setCurrentPage(pageNumber) <- START HERE
+      setPostsPerPage(itemsPerPage)
+      setCurrentPageUrl(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${itemsPerPage}`)
+    }
 
     return (
       <ThemeProvider theme={theme}>
@@ -119,7 +112,6 @@ export default function App2() {
                   <PageControl
                       gotoNextPage={nextPageUrl ? gotoNextPage : null}
                       gotoPrevPage={prevPageUrl ? gotoPrevPage : null}
-                      showItems={showItems}
                       postsPerPage={postsPerPage}
                       totalPosts={totalPosts}
                       paginate={paginate}
@@ -130,7 +122,7 @@ export default function App2() {
 
           <Container sx={{ py: 8 }} maxWidth="lg">
             <Grid container>
-              <PokeList pokemon={currentPokemon} loading={loading} />
+              <PokeList pokemon={pokemon} loading={loading} />
             </Grid>
           </Container>
 
@@ -145,7 +137,6 @@ export default function App2() {
                       <PageControl
                         gotoNextPage={nextPageUrl ? gotoNextPage : null}
                         gotoPrevPage={prevPageUrl ? gotoPrevPage : null}
-                        showItems={showItems}
                         postsPerPage={postsPerPage}
                         totalPosts={totalPosts}
                         paginate={paginate}

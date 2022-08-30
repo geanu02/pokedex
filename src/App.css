@@ -26,3 +26,19 @@ h2.pokename {
 #customized-dialog-title {
     text-transform: capitalize;
 }
+
+.pagination {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pag-list-item {
+    float: left;
+}
+.pag-list-a {
+    display: block;
+    padding: 1.2em;
+    background-color: #dddddd;
+    text-decoration: none;
+}
