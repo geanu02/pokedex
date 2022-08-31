@@ -39,7 +39,12 @@ export default function App2() {
     const [prevPageUrl, setPrevPageUrl] = useState()
     const [nextPageUrl, setNextPageUrl] = useState()
     const [totalPosts, setTotalPosts] = useState(0)
+    const [pageNum, setPageNum] = useState(1)
   
+    // Store API Response to Cache
+
+    // Load API Response from Cache
+
     useEffect(() => { 
       setLoading(true)
       let cancel
@@ -59,14 +64,20 @@ export default function App2() {
 
     // Pagination
 
-    const gotoNextPage = () => setCurrentPageUrl(nextPageUrl)
-    const gotoPrevPage = () => setCurrentPageUrl(prevPageUrl)
+    const gotoNextPage = () => {
+      setCurrentPageUrl(nextPageUrl)
+      setPageNum(prev => prev + 1)
+    }
+
+    const gotoPrevPage = () => {
+      setCurrentPageUrl(prevPageUrl)
+      setPageNum(prev => prev - 1)
+    }
 
     // Change Page
 
     const paginate = (pageNumber, itemsPerPage) => {
       let offset = (pageNumber - 1) * itemsPerPage
-      // setCurrentPage(pageNumber) <- START HERE
       setPostsPerPage(itemsPerPage)
       setCurrentPageUrl(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${itemsPerPage}`)
     }
@@ -114,6 +125,8 @@ export default function App2() {
                       gotoPrevPage={prevPageUrl ? gotoPrevPage : null}
                       postsPerPage={postsPerPage}
                       totalPosts={totalPosts}
+                      pageNum={pageNum}
+                      setPageNum={setPageNum}
                       paginate={paginate}
                   />
               </Stack>
@@ -139,6 +152,8 @@ export default function App2() {
                         gotoPrevPage={prevPageUrl ? gotoPrevPage : null}
                         postsPerPage={postsPerPage}
                         totalPosts={totalPosts}
+                        pageNum={pageNum}
+                        setPageNum={setPageNum}
                         paginate={paginate}
                       />
                   </Stack>
