@@ -89,6 +89,8 @@ export default function PokeCard({ p }) {
         setOpen(false);
     };
 
+    const addDefaultSrc = e => e.target.src = '/not_avail.jpg'
+
     return (
       <>
         <Card
@@ -98,13 +100,10 @@ export default function PokeCard({ p }) {
         >
             <CardActionArea onClick={handleClickOpen}>
                 <CardMedia
-                    component="img"
-                    sx={{
-                        // 16:9
-                        // pt: '56.25%',
-                    }}
-                    image={pokeImgUrl}
-                    alt={name}
+                  component="img"
+                  image={pokeImgUrl}
+                  onError={addDefaultSrc}
+                  alt={name}
                 />
                 <CardContent sx={{ flexGrow: 1 }}>
                 <Typography gutterBottom variant="h5" component="h2" class="pokename">#{pokeNum} {name}</Typography>

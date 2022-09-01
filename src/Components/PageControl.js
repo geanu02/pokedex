@@ -55,20 +55,7 @@ export default function PageControl({ gotoNextPage, gotoPrevPage, postsPerPage, 
             variant="outlined"
             shape="rounded"
             color="primary"
-
-            // Task 1:
-            // Remove 'Previous' & 'Next' Buttons and use Arrow Buttons
-            // on Pagination component to drive instead
-
-            // Task 2:
-            // Selected or highlighted page number should be controlled to 
-            // synchronize both Pagination components (top & bottom)
-
-            // Task 3:
-            // If number of items per page is changed, selected or 
-            // highlighted page number should go back to Page 1
-
-            />
+          />
           <IconButton 
             aria-label="Next page" 
             onClick={gotoNextPage} 
